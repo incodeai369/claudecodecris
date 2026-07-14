@@ -1,0 +1,391 @@
+<title>Odilon Grube — Cafés de Negócios em Máquinas de Vendas</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --red:#e23330; --blue:#4da2e8; --light:#edeeef; --ink:#1a1a1a;
+    --bg0:#0b0c0e; --bg1:#17191d; --bg2:#22262c; --muted:#98a0aa;
+    --sans: system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --chess:"Segoe UI Symbol","Noto Sans Symbols 2","Apple Symbols","DejaVu Sans",system-ui;
+    --dur:780ms; --ease:cubic-bezier(.72,0,.18,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;background:#000;overflow:hidden;font-family:var(--sans);color:var(--light)}
+  #stage{position:absolute;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center;transform:translate(-50%,-50%)}
+  #deck{position:absolute;inset:0;perspective:2200px;overflow:hidden;
+    background:radial-gradient(125% 130% at 80% 8%,var(--bg2),var(--bg1) 44%,var(--bg0) 100%)}
+  .slide{position:absolute;inset:0;opacity:0;pointer-events:none;
+    transform:translate(0,0) scale(1) rotateY(0deg);clip-path:circle(150% at 50% 50%);
+    will-change:transform,opacity,filter,clip-path;
+    display:flex;flex-direction:column;justify-content:center;padding:120px 150px;overflow:hidden}
+  .slide.show{pointer-events:auto}
+
+  /* faint chessboard texture in a corner of every slide */
+  .checker{position:absolute;width:560px;height:560px;opacity:.05;pointer-events:none;
+    background-image:linear-gradient(45deg,#fff 25%,transparent 25%,transparent 75%,#fff 75%),
+      linear-gradient(45deg,#fff 25%,transparent 25%,transparent 75%,#fff 75%);
+    background-size:70px 70px;background-position:0 0,35px 35px;
+    -webkit-mask-image:radial-gradient(circle at center,#000,transparent 72%);mask-image:radial-gradient(circle at center,#000,transparent 72%)}
+  .checker.tr{right:-120px;top:-140px} .checker.bl{left:-150px;bottom:-160px}
+
+  .cg{font-family:var(--chess);line-height:1}
+
+  h1,h2,h3{line-height:1.03;font-weight:800;letter-spacing:-.01em}
+
+  /* chrome */
+  #chrome{position:absolute;inset:0;pointer-events:none;z-index:50}
+  #bar{position:absolute;left:0;top:0;height:6px;width:0;background:linear-gradient(90deg,var(--red),var(--blue));
+    transition:width var(--dur) var(--ease);box-shadow:0 0 20px rgba(77,162,232,.55)}
+  #count{position:absolute;right:56px;bottom:42px;font-size:22px;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+  #count b{color:var(--light)}
+  .brand{position:absolute;left:60px;bottom:38px;display:flex;align-items:center;gap:14px;font-weight:900;font-size:30px;letter-spacing:.16em}
+  .brand .mk{width:46px;height:46px;border-radius:50%;border:2px solid var(--light);display:grid;place-items:center;font-size:26px}
+  .brand .mk .cg{background:linear-gradient(180deg,var(--blue),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .brand small{font-size:15px;letter-spacing:.28em;color:var(--muted);font-weight:600;margin-left:2px}
+  #hint{position:absolute;left:50%;bottom:36px;transform:translateX(-50%);font-size:20px;color:var(--muted);letter-spacing:.06em;transition:opacity .6s;display:flex;gap:12px;align-items:center}
+  #hint .k{border:1px solid #3a3f47;border-radius:8px;padding:4px 12px;color:var(--light);font-size:18px}
+
+  .kicker{display:inline-flex;align-items:center;gap:16px;font-size:23px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .kicker::before{content:"";width:52px;height:2px;background:var(--acc,var(--red))}
+  .acc-red{--acc:var(--red)} .acc-blue{--acc:var(--blue)}
+
+  /* photo placeholder */
+  .photoslot{position:relative;background:linear-gradient(160deg,#191c21,#101216);border:2px dashed #3b424c;border-radius:22px;
+    display:grid;place-items:center;overflow:hidden;background-size:cover;background-position:center}
+  .photoslot::before{content:attr(data-piece);font-family:var(--chess);font-size:150px;color:#2c333c}
+  .photoslot::after{content:attr(data-cap);position:absolute;bottom:26px;left:0;right:0;text-align:center;color:var(--muted);
+    font-size:20px;letter-spacing:.02em;padding:0 20px}
+  .photoslot.filled{border-style:solid;border-color:transparent}
+  .photoslot.filled::before,.photoslot.filled::after{display:none}
+
+  /* COVER */
+  #s-cover{padding:0}
+  #s-cover .grid{display:grid;grid-template-columns:1.08fr .92fr;height:100%}
+  #s-cover .left{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:120px 90px 120px 150px}
+  #s-cover .knightbg{position:absolute;right:38%;bottom:-170px;font-size:760px;opacity:.05;color:#fff;transform:rotate(-6deg);pointer-events:none}
+  .logo{display:flex;align-items:center;gap:16px;margin-bottom:60px}
+  .logo .mk{width:66px;height:66px;border-radius:50%;border:3px solid var(--light);display:grid;place-items:center;font-size:38px}
+  .logo .mk .cg{background:linear-gradient(180deg,var(--blue),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo b{font-size:46px;font-weight:900;letter-spacing:.14em}
+  .logo small{display:block;font-size:16px;letter-spacing:.34em;color:var(--muted);font-weight:600}
+  #s-cover .left{padding-bottom:70px}
+  #s-cover h1{font-size:82px;letter-spacing:-.02em}
+  #s-cover h1 .hl{color:var(--red)} #s-cover h1 .hl2{color:var(--blue)}
+  #s-cover .logo{margin-bottom:44px}
+  .name{margin-top:36px;display:flex;align-items:center;gap:20px;font-size:42px;font-weight:800}
+  .role{margin-top:16px;font-size:22px;line-height:1.5;color:var(--muted);max-width:740px;font-weight:500}
+  #s-cover .right{position:relative}
+  #s-cover .photoslot{position:absolute;inset:70px 90px 70px 0;border-radius:26px}
+  #s-cover .photoslot::after{content:attr(data-cap)}
+
+  /* NUMBER slides */
+  .numslide .bignum{position:absolute;right:96px;top:40px;font-size:560px;font-weight:900;line-height:.8;color:transparent;
+    -webkit-text-stroke:2px rgba(255,255,255,.09);letter-spacing:-.04em;pointer-events:none;user-select:none}
+  .numslide .piece{position:absolute;right:150px;bottom:90px;font-size:300px;color:var(--acc);opacity:.14;
+    filter:drop-shadow(0 0 60px color-mix(in srgb,var(--acc) 50%,transparent))}
+  .numslide .content{position:relative;z-index:2;max-width:1240px}
+  .numslide .idx{display:inline-flex;align-items:center;gap:16px;font-size:26px;font-weight:900;color:var(--acc);letter-spacing:.24em;text-transform:uppercase}
+  .numslide .idx .cg{font-size:40px;opacity:1}
+  .numslide h2{font-size:94px;margin:26px 0 32px;max-width:1160px}
+  .numslide .rule{width:120px;height:8px;background:var(--acc);border-radius:6px;margin-bottom:42px;box-shadow:0 0 30px color-mix(in srgb,var(--acc) 60%,transparent)}
+  .numslide p{font-size:40px;line-height:1.42;color:#d8dce2;max-width:1080px;font-weight:400}
+  .dots{position:absolute;left:150px;bottom:70px;display:flex;gap:14px;z-index:3}
+  .dots i{width:14px;height:14px;border-radius:50%;background:#39404a;transition:.3s}
+  .dots i.on{background:var(--acc);width:44px;border-radius:8px}
+
+  /* PRATICAR */
+  #s-praticar{align-items:center;justify-content:center;text-align:center;background:radial-gradient(80% 80% at 50% 42%,#141924,#000 100%)}
+  #s-praticar .pieces{font-size:150px;letter-spacing:26px;margin-bottom:40px;
+    background:linear-gradient(90deg,var(--red),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 40px rgba(77,162,232,.35))}
+  #s-praticar h2{font-size:150px;font-weight:900;letter-spacing:-.02em}
+  #s-praticar h2 .u{color:var(--blue)}
+  #s-praticar .sub{margin-top:30px;font-size:28px;letter-spacing:.42em;text-transform:uppercase;color:var(--muted)}
+
+  /* METHOD */
+  #s-method .q{font-size:74px;font-weight:800;max-width:1400px;line-height:1.08}
+  #s-method .q .u{color:var(--blue)}
+  .chips{display:flex;flex-wrap:wrap;gap:24px;margin-top:66px}
+  .chip{position:relative;padding:28px 42px;border-radius:18px;background:linear-gradient(160deg,#20242b,#14171c);
+    border:1px solid #2e343c;font-size:42px;font-weight:800;display:flex;align-items:center;gap:20px;box-shadow:0 24px 60px rgba(0,0,0,.45)}
+  .chip .cg{font-size:46px;color:var(--c)}
+  .chip .n{position:absolute;top:-16px;left:-16px;font-size:22px;font-weight:900;color:#0b0c0e;background:var(--c);
+    width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+
+  /* ACTIVITY */
+  #s-activity{padding:0}
+  #s-activity .grid{display:grid;grid-template-columns:1fr 1fr;height:100%}
+  #s-activity .photoslot{margin:70px 40px 70px 90px;border-radius:26px}
+  #s-activity .panel{display:flex;flex-direction:column;justify-content:center;padding:100px 130px 100px 40px}
+  #s-activity .tag{display:inline-flex;align-items:center;gap:14px;font-size:24px;letter-spacing:.3em;text-transform:uppercase;color:var(--red);font-weight:800;margin-bottom:24px}
+  #s-activity h2{font-size:62px;margin-bottom:20px}
+  .lines{margin-top:26px;display:flex;flex-direction:column;gap:30px}
+  .lines .ln{display:flex;align-items:flex-end;gap:22px;font-size:40px;color:#d8dce2}
+  .lines .ln b{color:var(--blue);font-weight:900;width:52px}
+  .lines .ln span{flex:1;border-bottom:2px dashed #4a515c;height:42px}
+
+  /* CLOSE */
+  #s-close{padding:0}
+  #s-close .grid{display:grid;grid-template-columns:1fr .82fr;height:100%}
+  #s-close .left{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;padding:120px 60px 120px 150px}
+  #s-close .cup{font-size:96px;margin-bottom:22px}
+  #s-close h2{font-size:96px;line-height:1.05}
+  #s-close h2 .u{color:var(--red)}
+  #s-close .logo{margin-top:64px}
+  #s-close .photoslot{margin:70px 90px 70px 0;border-radius:26px}
+  #s-close .kingbg{position:absolute;left:20%;bottom:-160px;font-size:640px;opacity:.05;color:#fff;pointer-events:none}
+
+  /* INTRO */
+  #intro{position:absolute;inset:0;z-index:80;background:#000;display:grid;place-items:center;transition:opacity .7s;cursor:pointer}
+  #intro .logo{justify-content:center;margin-bottom:20px}
+  #intro p{color:var(--muted);font-size:24px;letter-spacing:.1em;text-align:center}
+  #intro .go{margin-top:30px;font-size:20px;color:var(--light);border:1px solid #3a3f47;border-radius:40px;padding:14px 34px;display:inline-block}
+  #intro .center{text-align:center}
+</style>
+
+<div id="stage"><div id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide show" id="s-cover" data-anim="fade">
+    <div class="checker tr"></div>
+    <div class="grid">
+      <div class="left">
+        <div class="knightbg cg">&#9822;</div>
+        <div class="logo"><span class="mk"><span class="cg">&#9822;</span></span><b>GRUBE<small>MARCAS &amp; PATENTES</small></b></div>
+        <h1>Como transformar <span class="hl">Cafés de Negócios</span> em <span class="hl2">Máquinas de Vendas.</span></h1>
+        <div class="name">Odilon Grube <span>💎</span></div>
+        <p class="role">Empresário | Especialista em Network | Mentor do Conselho Jovem Empresário (CJE) na Associação Comercial do Paraná (ACP) | Ajudo empresários a construírem marcas fortes</p>
+      </div>
+      <div class="right">
+        <div class="photoslot" id="ph-cover" data-piece="&#9822;" data-cap="Foto do Odilon — retrato (envie como arquivo)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2..8 PRINCIPLES -->
+  <section class="slide numslide acc-red" data-anim="cube">
+    <div class="checker bl"></div><div class="bignum">1</div><div class="piece cg">&#9823;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9823;</span> Princípio 01</div>
+      <h2>Construa relacionamentos genuínos</h2><div class="rule"></div>
+      <p>Concentre-se em conhecer as pessoas, seus interesses e necessidades, antes de buscar oportunidades de negócio.</p></div>
+    <div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="slide">
+    <div class="checker tr"></div><div class="bignum">2</div><div class="piece cg">&#9822;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9822;</span> Princípio 02</div>
+      <h2>Identifique oportunidades</h2><div class="rule"></div>
+      <p>Esteja atento às necessidades e interesses dos seus contatos, buscando formas de agregar valor às suas vidas e negócios.</p></div>
+    <div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-red" data-anim="up">
+    <div class="checker bl"></div><div class="bignum">3</div><div class="piece cg">&#9821;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9821;</span> Princípio 03</div>
+      <h2>Comunique-se eficazmente</h2><div class="rule"></div>
+      <p>Seja claro, objetivo e persuasivo em sua comunicação, transmitindo sua mensagem de forma clara e concisa.</p></div>
+    <div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="flip">
+    <div class="checker tr"></div><div class="bignum">4</div><div class="piece cg">&#9820;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9820;</span> Princípio 04</div>
+      <h2>Mantenha o contato</h2><div class="rule"></div>
+      <p>Mantenha um relacionamento com seus contatos, mesmo após o contato inicial.</p></div>
+    <div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-red" data-anim="zoom">
+    <div class="checker bl"></div><div class="bignum">5</div><div class="piece cg">&#9819;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9819;</span> Princípio 05</div>
+      <h2>Participe de eventos</h2><div class="rule"></div>
+      <p>Participe de eventos relacionados à sua área de atuação, buscando conhecer novas pessoas e fortalecer seus relacionamentos.</p></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="blur">
+    <div class="checker tr"></div><div class="bignum">6</div><div class="piece cg">&#9818;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9818;</span> Princípio 06</div>
+      <h2>Seja proativo</h2><div class="rule"></div>
+      <p>Não espere que as oportunidades apareçam, busque ativamente novas conexões e formas de agregar valor aos seus contatos.</p></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div>
+  </section>
+
+  <section class="slide numslide acc-red" data-anim="iris">
+    <div class="checker bl"></div><div class="bignum">7</div><div class="piece cg">&#9822;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9822;</span> Princípio 07</div>
+      <h2>Seja persistente</h2><div class="rule"></div>
+      <p>O networking é um processo contínuo, não desista se não obtiver resultados imediatos.</p></div>
+    <div class="dots"><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i></div>
+  </section>
+
+  <!-- 9 PRATICAR -->
+  <section class="slide" id="s-praticar" data-anim="zoom">
+    <div class="pieces cg">&#9818;&#9822;&#9819;</div>
+    <h2>Vamos <span class="u">Praticar</span></h2>
+    <div class="sub">Da teoria ao tabuleiro</div>
+  </section>
+
+  <!-- 10 METHOD -->
+  <section class="slide" id="s-method" data-anim="up">
+    <div class="checker tr"></div>
+    <div class="content" style="position:relative;z-index:2">
+      <div class="kicker acc-blue" style="margin-bottom:32px">O Método</div>
+      <div class="q">Como transformar <span class="u">Cafés de negócios</span> em maquinas de vendas?</div>
+      <div class="chips">
+        <div class="chip" style="--c:var(--red)"><span class="n">1</span><span class="cg">&#9820;</span>Organize</div>
+        <div class="chip" style="--c:var(--blue)"><span class="n">2</span><span class="cg">&#9821;</span>Agradeça</div>
+        <div class="chip" style="--c:var(--red)"><span class="n">3</span><span class="cg">&#9822;</span>Convide</div>
+        <div class="chip" style="--c:var(--blue)"><span class="n">4</span><span class="cg">&#9819;</span>Ofereça</div>
+        <div class="chip" style="--c:var(--red)"><span class="n">5</span><span class="cg">&#9818;</span>Agende</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 ACTIVITY -->
+  <section class="slide" id="s-activity" data-anim="iris">
+    <div class="grid">
+      <div class="photoslot" id="ph-activity" data-piece="&#9821;" data-cap="Foto do Odilon — atividade (envie como arquivo)"></div>
+      <div class="panel">
+        <div class="tag"><span class="cg">&#9820;</span> Atividade</div>
+        <h2>Liste aqui 5 contatos que você fez:</h2>
+        <div class="lines">
+          <div class="ln"><b>1.</b><span></span></div>
+          <div class="ln"><b>2.</b><span></span></div>
+          <div class="ln"><b>3.</b><span></span></div>
+          <div class="ln"><b>4.</b><span></span></div>
+          <div class="ln"><b>5.</b><span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12..17 STEPS -->
+  <section class="slide numslide acc-red" data-anim="slide">
+    <div class="checker tr"></div><div class="bignum">1</div><div class="piece cg">&#9823;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9823;</span> Passo 1</div>
+      <h2>Organize seus contatos</h2><div class="rule"></div>
+      <p>Separe os contatos por: área de interesse ou oportunidade de colaboração.</p></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="cube">
+    <div class="checker bl"></div><div class="bignum">2</div><div class="piece cg">&#9822;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9822;</span> Passo 2</div>
+      <h2>Agradeça pela conexão</h2><div class="rule"></div>
+      <p>Envie no dia seguinte uma mensagem curta agradecendo o papo do dia anterior.</p></div>
+  </section>
+
+  <section class="slide numslide acc-red" data-anim="up">
+    <div class="checker tr"></div><div class="bignum">3</div><div class="piece cg">&#9821;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9821;</span> Passo 3</div>
+      <h2>Convide para seu ecossistema</h2><div class="rule"></div>
+      <p>Mostre que você tem um ambiente de trocas contínuas.</p></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="flip">
+    <div class="checker bl"></div><div class="bignum">4</div><div class="piece cg">&#9820;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9820;</span> Passo 4</div>
+      <h2>Ofereça valor primeiro</h2><div class="rule"></div>
+      <p>Veja como você pode ajudar essa pessoa. Compartilhe um contato, conteúdo ou faça uma ponte.</p></div>
+  </section>
+
+  <section class="slide numslide acc-red" data-anim="zoom">
+    <div class="checker tr"></div><div class="bignum">5</div><div class="piece cg">&#9819;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9819;</span> Passo 5</div>
+      <h2>Agende um novo contato</h2><div class="rule"></div>
+      <p>Convide para um café individual ou uma call mais focada:</p></div>
+  </section>
+
+  <section class="slide numslide acc-blue" data-anim="blur">
+    <div class="checker bl"></div><div class="bignum">6</div><div class="piece cg">&#9818;</div>
+    <div class="content"><div class="idx"><span class="cg">&#9818;</span> Passo 6</div>
+      <h2>Alimente a conexão com frequência</h2><div class="rule"></div>
+      <p>Use lembretes para acompanhar essa pessoa daqui 30 dias. Envie um artigo, parabéns por algo, ou só mantenha o canal aberto.</p></div>
+  </section>
+
+  <!-- 18 CLOSE -->
+  <section class="slide" id="s-close" data-anim="fade">
+    <div class="grid">
+      <div class="left">
+        <div class="kingbg cg">&#9818;</div>
+        <div class="cup">☕</div>
+        <h2>Quem será que irá tomar um <span class="u">café</span> com você?</h2>
+        <div class="logo"><span class="mk"><span class="cg">&#9822;</span></span><b>GRUBE<small>MARCAS &amp; PATENTES</small></b></div>
+      </div>
+      <div style="position:relative">
+        <div class="photoslot" id="ph-close" data-piece="&#9818;" data-cap="Foto do Odilon — encerramento (envie como arquivo)"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="chrome">
+  <div id="bar"></div>
+  <div class="brand" id="cbrand"><span class="mk"><span class="cg">&#9822;</span></span>GRUBE <small>MARCAS &amp; PATENTES</small></div>
+  <div id="count"><b id="cur">1</b> / <span id="tot">18</span></div>
+  <div id="hint"><span>Avance com o passador</span><span class="k">▶</span><span class="k">Espaço</span></div>
+</div></div>
+
+<div id="intro"><div class="center">
+  <div class="logo" style="justify-content:center"><span class="mk" style="width:66px;height:66px;border:3px solid var(--light);border-radius:50%;display:grid;place-items:center;font-size:38px"><span class="cg" style="background:linear-gradient(180deg,var(--blue),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent">&#9822;</span></span><b style="font-size:46px;font-weight:900;letter-spacing:.14em">GRUBE</b></div>
+  <p>Apresentação de Odilon Grube</p>
+  <div class="go">Clique ou pressione ▶ para começar</div>
+</div></div>
+
+<script>
+(function(){
+  var stage=document.getElementById('stage'),deck=document.getElementById('deck');
+  var slides=[].slice.call(deck.querySelectorAll('.slide'));
+  var N=slides.length,cur=0,animating=false;
+  document.getElementById('tot').textContent=N;
+
+  function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='translate(-50%,-50%) scale('+s+')';}
+  addEventListener('resize',fit);fit();
+
+  var TF=function(x,y,s,r){return 'translate('+(x||'0px')+','+(y||'0px')+') scale('+(s==null?1:s)+') rotateY('+(r||0)+'deg)';};
+  var ACT={transform:TF(),opacity:'1',filter:'blur(0px)',clip:'circle(150% at 50% 50%)'};
+  var T={
+    fade:{b:{transform:TF('0','0',1.05),opacity:'0'},a:{transform:TF('0','0',.96),opacity:'0'}},
+    slide:{b:{transform:TF('100%','0')},a:{transform:TF('-100%','0')}},
+    up:{b:{transform:TF('0','101%')},a:{transform:TF('0','-101%')}},
+    zoom:{b:{transform:TF('0','0',1.45),opacity:'0'},a:{transform:TF('0','0',.5),opacity:'0'}},
+    blur:{b:{transform:TF('0','0',1.09),opacity:'0',filter:'blur(26px)'},a:{transform:TF('0','0',.95),opacity:'0',filter:'blur(26px)'}},
+    cube:{b:{transform:TF('58%','0',1,-58),opacity:'0'},a:{transform:TF('-58%','0',1,58),opacity:'0'}},
+    flip:{b:{transform:TF('0','0',1,92),opacity:'0'},a:{transform:TF('0','0',1,-92),opacity:'0'}},
+    iris:{b:{clip:'circle(0% at 50% 50%)'},a:{clip:'circle(0% at 50% 50%)'}}
+  };
+  function setState(el,st){el.style.transform=st.transform||ACT.transform;el.style.opacity=st.opacity!=null?st.opacity:ACT.opacity;el.style.filter=st.filter||ACT.filter;el.style.clipPath=st.clip||ACT.clip;}
+  function go(n,dir){
+    if(animating||n<0||n>=N||n===cur)return;animating=true;
+    var inN=slides[n],outN=slides[cur];var t=T[inN.getAttribute('data-anim')]||T.fade;
+    var from=dir>0?t.b:t.a,to=dir>0?t.a:t.b;
+    inN.classList.add('show');inN.style.transition='none';outN.style.transition='none';
+    setState(inN,from);setState(outN,ACT);void inN.offsetWidth;
+    var tr='transform var(--dur) var(--ease),opacity var(--dur) var(--ease),filter var(--dur) var(--ease),clip-path var(--dur) var(--ease)';
+    inN.style.transition=tr;outN.style.transition=tr;setState(inN,ACT);setState(outN,to);
+    var done=n;setTimeout(function(){outN.classList.remove('show');outN.style.opacity='0';cur=done;animating=false;chrome();},820);
+  }
+  function chrome(){document.getElementById('bar').style.width=(cur/(N-1)*100)+'%';document.getElementById('cur').textContent=cur+1;document.getElementById('hint').style.opacity=cur===0?'1':'0';document.getElementById('cbrand').style.opacity=(cur===0||cur===N-1)?'0':'.95';}
+  function next(){go(cur+1,1);}function prev(){go(cur-1,-1);}
+
+  var intro=document.getElementById('intro'),started=false;
+  function start(){if(started)return;started=true;intro.style.opacity='0';setTimeout(function(){intro.style.display='none';},700);}
+  intro.addEventListener('click',start);
+
+  addEventListener('keydown',function(e){var k=e.key;
+    if(!started&&(k==='Enter'||k===' '||k==='ArrowRight'||k==='PageDown')){start();e.preventDefault();return;}
+    if(k==='ArrowRight'||k==='ArrowDown'||k==='PageDown'||k===' '||k==='Enter'){next();e.preventDefault();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='PageUp'||k==='Backspace'){prev();e.preventDefault();}
+    else if(k==='Home'){go(0,-1);}
+    else if(k==='End'){go(N-1,1);}
+    else if(k==='f'||k==='F'){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+  });
+  setState(slides[0],ACT);
+  deck.addEventListener('click',function(e){if(!started)return;if(e.clientX<innerWidth*0.28)prev();else next();});
+  var sx=0,sy=0;
+  addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  addEventListener('touchend',function(e){if(!started){start();return;}var dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){dx<0?next():prev();}},{passive:true});
+  chrome();
+})();
+</script>
