@@ -165,9 +165,15 @@ h1,h2{font-family:var(--serif);font-weight:500;line-height:1.015;letter-spacing:
   background:radial-gradient(80% 70% at 78% 30%,color-mix(in srgb,var(--blue) 26%,transparent),transparent 62%),
              radial-gradient(70% 60% at 92% 88%,color-mix(in srgb,var(--red) 20%,transparent),transparent 58%);
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 58%);mask-image:linear-gradient(90deg,transparent,#000 58%)}
-.secgfx .gpiece{position:absolute;right:150px;top:50%;transform:translateY(-50%);font-family:var(--chess);font-size:360px;line-height:.8;
-  color:transparent;-webkit-text-stroke:1.6px color-mix(in srgb,var(--acc) 42%,transparent);
-  filter:drop-shadow(0 0 50px color-mix(in srgb,var(--acc) 22%,transparent))}
+.secgfx::before{content:"";position:absolute;inset:0;opacity:.05;pointer-events:none;
+  background-image:linear-gradient(45deg,#fff 25%,transparent 25%,transparent 75%,#fff 75%),linear-gradient(45deg,#fff 25%,transparent 25%,transparent 75%,#fff 75%);
+  background-size:84px 84px;background-position:0 0,42px 42px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 30%,#000 90%);mask-image:linear-gradient(90deg,transparent 30%,#000 90%)}
+.secgfx .gpiece{position:absolute;right:160px;top:50%;transform:translateY(-50%);font-family:var(--chess);font-size:380px;line-height:.8;
+  color:transparent;-webkit-text-stroke:1.7px color-mix(in srgb,var(--acc) 48%,transparent);
+  filter:drop-shadow(0 0 60px color-mix(in srgb,var(--acc) 26%,transparent))}
+.secgfx .gpiece::after{content:"";position:absolute;left:50%;top:50%;width:520px;height:520px;transform:translate(-50%,-50%);
+  border:1px solid color-mix(in srgb,var(--acc) 22%,transparent);border-radius:50%}
 .sec .num{position:absolute;left:118px;top:92px;right:auto;font-family:var(--serif);font-weight:400;font-size:250px;line-height:.8;
   color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--acc) 55%,transparent);letter-spacing:-.03em;pointer-events:none;z-index:1;opacity:.5}
 .sec .content{position:relative;z-index:3;max-width:830px}
