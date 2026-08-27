@@ -292,16 +292,16 @@ nav.solid .brand,nav.solid .brand img{height:32px}
 .ring-stage{position:absolute;left:50%;top:calc(50% - 18px);width:var(--pw);height:var(--ph);
   margin-left:calc(var(--pw)/-2);margin-top:calc(var(--ph)/-2);
   transform-style:preserve-3d;will-change:transform}
-.ring-cell{position:absolute;inset:0;backface-visibility:hidden;will-change:opacity,filter}
-.ring-cell .phone{position:absolute;inset:0;border-radius:30px;overflow:hidden;background:#061a24;
-  box-shadow:0 34px 60px -26px rgba(3,22,31,.85),inset 0 0 0 5px #04141c,inset 0 0 0 6px rgba(159,224,230,.28),0 0 0 1px rgba(159,224,230,.14)}
-.ring-cell .phone:before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);
-  width:34%;height:7px;border-radius:6px;background:rgba(4,20,28,.9);z-index:3}
-.ring-cell .phone-screen{position:absolute;inset:6px;border-radius:24px;overflow:hidden;
-  background:linear-gradient(165deg,#0d475d,#07293a);display:flex;align-items:center;justify-content:center}
-.ring-cell .phone-screen img{width:100%;height:100%;object-fit:cover;display:block}
-.ring-cell .ph-num{font-family:'Outfit',sans-serif;font-weight:200;font-size:clamp(2.4rem,5vw,3.4rem);
-  color:rgba(159,224,230,.55);letter-spacing:.02em}
+.ring-cell{position:absolute;inset:0;transform-style:preserve-3d;will-change:opacity,filter}
+.phone3d{position:absolute;inset:0;transform-style:preserve-3d;filter:drop-shadow(0 34px 44px rgba(3,22,31,.7))}
+.pface{position:absolute;inset:0;border-radius:32px;overflow:hidden;backface-visibility:hidden}
+.pfront{background:#05161e;box-shadow:inset 0 0 0 2px rgba(159,224,230,.30)}
+.pfront:before{content:"";position:absolute;top:10px;left:50%;transform:translateX(-50%);width:30%;height:7px;border-radius:6px;background:#03121a;z-index:4}
+.pscreen{position:absolute;inset:6px;border-radius:26px;overflow:hidden;background:#07293a}
+.pscreen img{width:100%;height:100%;object-fit:cover;display:block}
+.pback{background:linear-gradient(150deg,#123a4c,#081d27 72%);box-shadow:inset 0 0 0 2px rgba(0,0,0,.35)}
+.pback:after{content:"";position:absolute;top:22px;left:22px;width:36px;height:36px;border-radius:11px;background:radial-gradient(circle at 38% 32%,#2a4a5a,#0a1a22 62%);box-shadow:0 0 0 3px rgba(255,255,255,.05),inset 0 0 8px rgba(0,0,0,.6)}
+.pedge{position:absolute;inset:0;border-radius:32px;background:linear-gradient(90deg,#020a0e,#0c2836 18%,#16394b 50%,#0c2836 82%,#020a0e)}
 .ring-hint{position:absolute;left:0;right:0;bottom:6px;text-align:center;pointer-events:none;
   font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(180,224,232,.6)}
@@ -1250,29 +1250,48 @@ document.querySelectorAll('[data-carousel]').forEach(function(c){
   var ring=document.getElementById('viradaRing'),stage=document.getElementById('ringStage');
   if(!ring||!stage)return;
   var cells=Array.prototype.slice.call(stage.querySelectorAll('.ring-cell'));
-  var n=cells.length,step=360/n,radius=0;
+  var n=cells.length,step=360/n,radius=0,phones=[];
+  function build(){
+    cells.forEach(function(cell){
+      var img=cell.querySelector('img');
+      cell.innerHTML='';
+      var p3=document.createElement('div');p3.className='phone3d';
+      var back=document.createElement('div');back.className='pface pback';p3.appendChild(back);
+      var M=12,edges=[];
+      for(var k=0;k<=M;k++){var e=document.createElement('div');e.className='pedge';e.setAttribute('data-t',(k/M));p3.appendChild(e);edges.push(e);}
+      var front=document.createElement('div');front.className='pface pfront';
+      var scr=document.createElement('div');scr.className='pscreen';if(img)scr.appendChild(img);front.appendChild(scr);
+      p3.appendChild(front);
+      cell.appendChild(p3);
+      phones.push({front:front,back:back,edges:edges});
+    });
+  }
+  function depth(){
+    var hd=Math.max(11,(stage.offsetWidth||200)*0.075);
+    phones.forEach(function(ph){
+      ph.front.style.transform='translateZ('+hd+'px)';
+      ph.back.style.transform='rotateY(180deg) translateZ('+hd+'px)';
+      ph.edges.forEach(function(e){var t=parseFloat(e.getAttribute('data-t'));e.style.transform='translateZ('+((-hd)+t*2*hd).toFixed(2)+'px)';});
+    });
+  }
   function layout(){
     var pw=stage.offsetWidth||200;
     var base=Math.round((pw/2)/Math.tan(Math.PI/n))+18;
-    radius=Math.max(base, Math.round((ring.clientWidth||pw)*0.30));
+    radius=Math.max(base,Math.round((ring.clientWidth||pw)*0.30));
     cells.forEach(function(c,i){c.style.transform='rotateY('+(i*step)+'deg) translateZ('+radius+'px)';});
+    depth();
   }
-  var angle=0,vel=0,dragging=false,lastX=0,auto=0.12;
+  var angle=0,vel=0,dragging=false,lastX=0,auto=0.11;
   function shade(){
     for(var i=0;i<n;i++){
-      var a=(i*step+angle)*Math.PI/180,z=Math.cos(a),d=(z+1)/2;
-      var c=cells[i];
-      c.style.opacity=(0.22+0.78*d).toFixed(3);
-      c.style.filter='brightness('+(0.62+0.38*d).toFixed(3)+') blur('+((1-d)*1.4).toFixed(2)+'px)';
-      c.style.zIndex=Math.round(d*100);
+      var a=(i*step+angle)*Math.PI/180,d=(Math.cos(a)+1)/2;
+      cells[i].style.opacity=(0.5+0.5*d).toFixed(3);
+      cells[i].style.filter='brightness('+(0.78+0.22*d).toFixed(3)+')';
     }
   }
   function apply(){stage.style.transform='translateZ(-'+radius+'px) rotateY('+angle+'deg)';shade();}
   function frame(){requestAnimationFrame(frame);
-    if(!dragging){
-      if(Math.abs(vel)>0.02){angle+=vel;vel*=0.94;}
-      else if(!reduce){angle+=auto;}
-    }
+    if(!dragging){ if(Math.abs(vel)>0.02){angle+=vel;vel*=0.94;} else if(!reduce){angle+=auto;} }
     apply();
   }
   function px(e){return e.touches?e.touches[0].clientX:e.clientX;}
@@ -1280,7 +1299,7 @@ document.querySelectorAll('[data-carousel]').forEach(function(c){
   window.addEventListener('pointermove',function(e){if(!dragging)return;var x=px(e),dx=(x-lastX)*0.35;lastX=x;angle+=dx;vel=dx;});
   window.addEventListener('pointerup',function(){dragging=false;});
   window.addEventListener('resize',function(){layout();apply();});
-  layout();apply();frame();
+  build();layout();apply();frame();
 })();
 
 })();
