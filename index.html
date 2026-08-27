@@ -285,8 +285,8 @@ nav.solid .brand,nav.solid .brand img{height:32px}
 @media(prefers-reduced-motion:reduce){.virada-svg.on{animation:none}}
 /* ===== anel 3D (A virada) ===== */
 .viradaRing{--pw:clamp(172px,20vw,232px);--ph:calc(var(--pw)*2.14);
-  position:relative;width:100%;max-width:1040px;margin-inline:auto;
-  height:calc(var(--ph) + 120px);perspective:1500px;touch-action:pan-y;cursor:grab;
+  position:relative;width:100%;max-width:min(1500px,96vw);margin-inline:auto;
+  height:calc(var(--ph) + 120px);perspective:1800px;touch-action:pan-y;cursor:grab;
   -webkit-user-select:none;user-select:none}
 .viradaRing:active{cursor:grabbing}
 .ring-stage{position:absolute;left:50%;top:calc(50% - 18px);width:var(--pw);height:var(--ph);
@@ -1253,7 +1253,8 @@ document.querySelectorAll('[data-carousel]').forEach(function(c){
   var n=cells.length,step=360/n,radius=0;
   function layout(){
     var pw=stage.offsetWidth||200;
-    radius=Math.round((pw/2)/Math.tan(Math.PI/n))+18;
+    var base=Math.round((pw/2)/Math.tan(Math.PI/n))+18;
+    radius=Math.max(base, Math.round((ring.clientWidth||pw)*0.30));
     cells.forEach(function(c,i){c.style.transform='rotateY('+(i*step)+'deg) translateZ('+radius+'px)';});
   }
   var angle=0,vel=0,dragging=false,lastX=0,auto=0.12;
