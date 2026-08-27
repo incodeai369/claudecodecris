@@ -292,9 +292,7 @@ nav.solid .brand,nav.solid .brand img{height:32px}
   font-size:clamp(1.2rem,1.9vw,1.55rem);line-height:1.28;max-width:27ch}
 
 /* ===== método ===== */
-.metodo-head{position:relative;text-align:center;max-width:920px;margin:0 auto 56px;
-  padding:44px 46px;border-radius:22px;overflow:hidden;
-  box-shadow:0 34px 74px -34px rgba(3,22,31,.75),inset 0 1px 0 rgba(255,255,255,.75),inset 0 0 0 1px rgba(255,255,255,.35)}
+.metodo-head{position:relative;text-align:center;width:100%;margin:0 0 64px;padding:clamp(40px,6vw,68px) 0;overflow:hidden;border-block:1px solid rgba(255,255,255,.5);box-shadow:0 30px 60px -40px rgba(3,22,31,.8),inset 0 1px 0 rgba(255,255,255,.7)}
 .metodo-head:before{content:"";position:absolute;top:0;left:-60%;width:45%;height:100%;pointer-events:none;
   background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);
   animation:sheen 6.5s ease-in-out infinite}
@@ -593,12 +591,14 @@ h1 .hl,h2 .hl,h1 .thin,h2 .thin{font-weight:500}
 <!-- MÉTODO -->
 <section class="tone-c" id="metodo">
 <div class="bgfx"><div class="aurora a2 par" data-sp="-0.12"></div><div class="aurora a3 par" data-sp="0.16"></div><div class="grain"></div></div>
-<div class="wrap">
 <div class="metodo-head pearl reveal">
+<div class="wrap">
 <p class="cap">O Método FYOO</p>
 <h2 style="max-width:26ch">Cinco passos que todo mundo ensina. <span class="hl">Um app que executa.</span></h2>
 <p class="lead">Toda funcionalidade existe para sustentar essa sequência <strong>sem depender de disciplina, agenda mental ou sorte</strong>.</p>
 </div>
+</div>
+<div class="wrap">
 <div class="metodo-body">
 <div class="metodo-globo reveal">
 <div class="globo-wrap"><canvas id="globo3d" role="img" aria-label="Globo 3D com pessoas interconectadas — a rede FYOO em movimento"></canvas></div>
