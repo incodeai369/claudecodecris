@@ -350,7 +350,11 @@ nav.solid .brand,nav.solid .brand img{height:32px}
 .trilho{position:relative;z-index:2;display:flex;flex-direction:column;gap:8px}
 .passo{position:relative;padding:20px 22px 20px 48px;border-radius:16px;
   background:linear-gradient(160deg,rgba(10,64,85,.14),rgba(3,22,31,.05));
-  box-shadow:inset 0 0 0 1px rgba(102,184,195,.08)}
+  box-shadow:inset 0 0 0 1px rgba(102,184,195,.08);
+  opacity:.28;transform:translateY(16px);transition:opacity .6s var(--e),transform .6s var(--e)}
+.passo.on{opacity:1;transform:none;
+  background:linear-gradient(160deg,rgba(10,64,85,.42),rgba(3,22,31,.16));
+  box-shadow:0 24px 56px -34px rgba(0,0,0,.85),inset 0 0 0 1px rgba(102,184,195,.18)}
 .passo .dot{position:absolute;left:16px;top:30px;width:14px;height:14px;border-radius:50%;
   border:1px solid var(--accent);background:var(--bg-deep);transition:.55s var(--e)}
 .passo .rot{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.2em;color:var(--accent);
@@ -519,7 +523,7 @@ h1 .hl,h2 .hl,h1 .thin,h2 .thin{font-weight:500}
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   .reveal{opacity:1!important;transform:none!important}
-  .passo{opacity:1!important;filter:none!important}
+  .passo{opacity:1!important;filter:none!important;transform:none!important}
 }
 :focus-visible{outline:1px solid var(--accent);outline-offset:4px}
 ::selection{background:var(--accent);color:#032230}
