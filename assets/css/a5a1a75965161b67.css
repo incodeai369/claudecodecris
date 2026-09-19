@@ -101,10 +101,23 @@
     z-index: -1;
 }
 
+.elementor-3634 .elementor-element.elementor-element-cdd2650{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.carde5{ order: 1; }
+.carde1{ order: 2; }
+.carde2{ order: 3; }
+.carde4{ order: 4; }
+
 .card2{
-    border-radius: 10px;
+    border-radius: 999px;
     cursor: pointer;
-    min-height: 295px;
+    min-height: 168px;
+    width: 100%;
+    overflow: hidden;
     z-index: 1;
 }
 
@@ -115,17 +128,19 @@
     height: 100%;
     top: 0;
     left: 0;
-     border-radius: 10px;
+    border-radius: 999px;
     opacity: 0;
     transition: 0.5s;
 }
 
 .card2 .card-content2{
-     background: linear-gradient(180deg, rgba(6,6,14,.25) 0%, rgba(6,6,14,.9) 68%);
-    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(6,6,14,.88) 0%, rgba(6,6,14,.88) 40%, rgba(6,6,14,.55) 100%);
+    border-radius: 999px;
     width: calc(100% - 2px)!important;
     height: calc(100% - 2px)!important;
     position: absolute;
+    display: flex;
+    align-items: center;
     z-index: 4;
 }
 
@@ -140,19 +155,16 @@
 .card-img-linkedin{ background-image: url('../images/brand/card-linkedin.jpg'); }
 .card-img-whatsapp{ background-image: url('../images/brand/card-whatsapp.jpg'); }
 
-
 .card2:before{
     background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245,243,238,0.35), transparent 40%);
     mix-blend-mode: screen;
     z-index: 6;
-   
 }
 
 .card2:after{
     background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(116,166,174,0.56), transparent 40%)!important;
     z-index: -1;
-    
-}   
+}
 
 .card2:hover:before{
     opacity: 1;
@@ -162,87 +174,48 @@
     opacity: 1;
 }
 
-
-
-.elementor-3634 .elementor-element.elementor-element-cdd2650{
-    display: grid;
-    grid-template-areas:
-    "a b"
-    "d e";
-    gap: 20px;
-
+.card2 .elementor-icon-box-wrapper{
+    flex-direction: row!important;
+    align-items: center!important;
+    text-align: left!important;
+    gap: 20px!important;
 }
 
-.carde1{
-    grid-area: a;
+.card2 .elementor-icon-box-content{
+    min-width: 0;
 }
 
-.carde2{
-    grid-area: b;
+.card2 .elementor-icon-box-title{
+    margin: 0 0 4px 0!important;
 }
 
-.carde4{
-    grid-area: d;
+.card2 .elementor-icon-box-description{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.carde5{
-    grid-area: e;
+.elementor-3634 .elementor-element.elementor-element-96e56c5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-bba4162 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-3cd9fe5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-fe42ff8 > .elementor-widget-container{
+    padding: 1.5em 2.5em!important;
+    width: 100%!important;
 }
-
-
-@media(max-width: 1053px) and (min-width:1025px){
-.card2{
-    min-height: 370px;
-}
-}
-
-@media(max-width: 1140px) and (min-width:1054px){
-.card2{
-    min-height: 355px;
-}
-}
-
-
-@media(max-width: 1270px) and (min-width:1141px){
-.card2{
-    min-height: 330px;
-}
-}
-
-
-@media(max-width: 1024px){
-    .elementor-3634 .elementor-element.elementor-element-cdd2650{
-    display: flex;
-    
-}
-}
-
-
-
-@media(max-width: 1024px) and (min-width:881px){
-.card2{
-    min-height: 300px;
-}
-}
-
-@media(max-width: 880px) and (min-width: 768px){
-.card2{
-    min-height: 260px;
-}
-}
-
-
-
-@media(max-width: 767px) and (min-width: 663px){
-.card2{
-    min-height: 230px;
-}
-}
-
 
 @media(max-width: 662px){
 .card2{
-    min-height: 200px;
+    min-height: 140px;
+}
+.elementor-3634 .elementor-element.elementor-element-96e56c5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-bba4162 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-3cd9fe5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-fe42ff8 > .elementor-widget-container{
+    padding: 1.1em 1.5em!important;
+}
+.card2 .elementor-icon-box-wrapper{
+    gap: 14px!important;
 }
 }/* End custom CSS */
 /* Start custom CSS for html, class: .elementor-element-9da0dcc */.linhas {
