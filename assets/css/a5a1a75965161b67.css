@@ -8,12 +8,12 @@
 
 
 .elementor-3634 .elementor-element.elementor-element-96e56c5{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 
 @media(max-width:1024px){
     .elementor-3634 .elementor-element.elementor-element-96e56c5{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 }/* End custom CSS */
 /* Start custom CSS for icon-box, class: .elementor-element-bba4162 */.elementor-3634 .elementor-element.elementor-element-bba4162 svg {
@@ -24,14 +24,14 @@
 
 
 .elementor-3634 .elementor-element.elementor-element-bba4162{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 
 
 
 @media(max-width:1024px){
     .elementor-3634 .elementor-element.elementor-element-bba4162{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 }/* End custom CSS */
 /* Start custom CSS for icon-box, class: .elementor-element-ab2f37f */.elementor-3634 .elementor-element.elementor-element-ab2f37f svg {
@@ -40,14 +40,14 @@
 
 
 .elementor-3634 .elementor-element.elementor-element-ab2f37f{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 
 
 
 @media(max-width:1024px){
     .elementor-3634 .elementor-element.elementor-element-ab2f37f{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 }/* End custom CSS */
 /* Start custom CSS for icon-box, class: .elementor-element-3cd9fe5 */.elementor-3634 .elementor-element.elementor-element-3cd9fe5 svg {
@@ -57,14 +57,14 @@
 
 
 .elementor-3634 .elementor-element.elementor-element-3cd9fe5{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 
 
 
 @media(max-width:1024px){
     .elementor-3634 .elementor-element.elementor-element-3cd9fe5{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 }/* End custom CSS */
 /* Start custom CSS for icon-box, class: .elementor-element-fe42ff8 */.elementor-3634 .elementor-element.elementor-element-fe42ff8 svg {
@@ -76,7 +76,7 @@
 
 
 .elementor-3634 .elementor-element.elementor-element-fe42ff8{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 
 
@@ -84,7 +84,7 @@
 
 @media(max-width:1024px){
     .elementor-3634 .elementor-element.elementor-element-fe42ff8{
-    background: linear-gradient(145deg, rgba(23,21,58,.55) 0%, rgba(13,11,31,.92) 100%);
+    background: linear-gradient(145deg, rgba(24,42,74,.55) 0%, rgba(8,16,30,.92) 100%);
 }
 }/* End custom CSS */
 /* Start custom CSS for container, class: .elementor-element-cdd2650 */.elementor-3634 .elementor-element.elementor-element-cdd2650:before{
@@ -95,7 +95,7 @@
     transform: translate(-50%, -50%);
     width: 800px;
     height: 800px;
-    background: #1d1a3890;
+    background: rgba(245,243,238,0.18);
     border-radius: 100%;
     filter: blur(180px);
     z-index: -1;
@@ -142,14 +142,14 @@
 
 
 .card2:before{
-    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), #2D307750, transparent 40%);
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(245,243,238,0.35), transparent 40%);
     mix-blend-mode: screen;
     z-index: 6;
    
 }
 
 .card2:after{
-    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), #9AEBF790, transparent 40%)!important;
+    background: radial-gradient(400px circle at var(--mouse-x) var(--mouse-y), rgba(116,166,174,0.56), transparent 40%)!important;
     z-index: -1;
     
 }   
@@ -287,7 +287,7 @@
     
 }/* End custom CSS */
 /* Start custom CSS for container, class: .elementor-element-cef0848 */.elementor-3634 .elementor-element.elementor-element-cef0848{
-    background: linear-gradient(to left, #1A1D24, #24262C);
+    background: linear-gradient(to left, #0B1830, #17325C);
 }/* End custom CSS */
 /* Start custom CSS for image-box, class: .elementor-element-0f2e550 */@media(max-width:364px){
     .elementor-3634 .elementor-element.elementor-element-0f2e550{
@@ -2082,13 +2082,13 @@ body::-webkit-scrollbar{
 }
 
 body::-webkit-scrollbar-track{
-    background: #17171E;
+    background: #0d1830;
 }
 
 body::-webkit-scrollbar-thumb{
-    background: #2C35FF;
+    background: #176B78;
     border-radius: 10px;
-    border: 2px solid #17171E;
+    border: 2px solid #0d1830;
 }
 
 
@@ -2128,9 +2128,9 @@ P{
 
 /*personalizando a seleÃ§Ã£o padrÃ£o*/
 *::selection{
-    color: #DEE1E6;
-    background: #2C35FF;
-    -webkit-text-fill-color: #DEE1E6;
+    color: #F5F3EE;
+    background: #176B78;
+    -webkit-text-fill-color: #F5F3EE;
 }
 
 @media(max-width: 1024px){
@@ -2213,9 +2213,9 @@ P{
 
 
 .destaque {
-    border: 1px solid #ABAEB4;
-    color: #ABAEB4;
-    font-size: 14px; 
+    border: 1px solid rgba(245,243,238,.55);
+    color: #F5F3EE;
+    font-size: 14px;
     padding: 6px 30px 4px 30px;
     border-radius: 100px;
     display: inline-block;
