@@ -113,7 +113,7 @@
 .carde4{ order: 4; }
 
 .card2{
-    border-radius: 999px;
+    border-radius: 16px;
     cursor: pointer;
     min-height: 168px;
     width: 100%;
@@ -134,14 +134,14 @@
     height: 100%;
     top: 0;
     left: 0;
-    border-radius: 999px;
+    border-radius: 16px;
     opacity: 0;
     transition: 0.5s;
 }
 
 .card2 .card-content2{
     background: linear-gradient(90deg, rgba(6,6,14,.88) 0%, rgba(6,6,14,.88) 40%, rgba(6,6,14,.55) 100%);
-    border-radius: 999px;
+    border-radius: 16px;
     width: calc(100% - 2px)!important;
     height: calc(100% - 2px)!important;
     position: absolute;
