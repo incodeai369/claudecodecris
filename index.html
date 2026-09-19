@@ -165,7 +165,20 @@ var pysFacebookRest = {"restApiUrl":"#","debug":""};
 .goted-hero-banner__logo{position:absolute;left:50%;top:24%;transform:translate(-50%,-50%);width:34%;max-width:420px;min-width:160px;height:auto;z-index:2;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));animation:goted-logo-pulse 2.6s ease-in-out infinite;}
 @keyframes goted-logo-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.08);}}
 @media (prefers-reduced-motion: reduce){.goted-hero-banner__logo{animation:none;}}
+.goted-bg-fx{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;}
+.goted-bg-fx span{position:absolute;border-radius:50%;filter:blur(90px);will-change:transform;}
+.goted-bg-fx span:nth-child(1){width:34vw;height:34vw;min-width:320px;min-height:320px;background:rgba(245,243,238,.16);top:8%;left:-8%;animation:goted-drift1 24s ease-in-out infinite;}
+.goted-bg-fx span:nth-child(2){width:40vw;height:40vw;min-width:380px;min-height:380px;background:rgba(8,26,40,.55);top:38%;right:-12%;animation:goted-drift2 28s ease-in-out infinite;}
+.goted-bg-fx span:nth-child(3){width:28vw;height:28vw;min-width:280px;min-height:280px;background:rgba(120,210,220,.20);bottom:-6%;left:32%;animation:goted-drift3 32s ease-in-out infinite;}
+@keyframes goted-drift1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(6vw,8vh) scale(1.12);}}
+@keyframes goted-drift2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-7vw,-6vh) scale(1.08);}}
+@keyframes goted-drift3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(5vw,-7vh) scale(1.1);}}
+@media (prefers-reduced-motion: reduce){.goted-bg-fx span{animation:none;}}
+.goted-statement{position:relative;padding:72px 24px;text-align:center;}
+.goted-statement p{position:relative;z-index:1;max-width:760px;margin:0 auto;font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(22px,3.4vw,34px);line-height:1.45;font-weight:500;color:#F5F3EE;}
+.goted-statement strong{color:#ffffff;font-weight:700;box-shadow:inset 0 -0.32em 0 rgba(245,243,238,.28);}
 </style>
+<div class="goted-bg-fx"><span></span><span></span><span></span></div>
 <section class="goted-hero-banner">
 <img class="goted-hero-banner__logo" src="assets/images/brand/logo-goted.png" alt="GOTED" width="1509" height="410" />
 </section>
@@ -391,7 +404,7 @@ var pysFacebookRest = {"restApiUrl":"#","debug":""};
 						</div>
 				</div>
 				</div>
-            
+<section class="goted-statement"><p>Empresas fortes não dependem de mais esforço, dependem de <strong>gestão inteligente</strong>.</p></section>
             <footer style="text-align:center;padding:20px;font-size:14px;color:rgba(245,243,238,.75);">© 2026 Goted — Todos os direitos reservados</footer>
 		<script type="speculationrules">
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/hello-elementor/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
