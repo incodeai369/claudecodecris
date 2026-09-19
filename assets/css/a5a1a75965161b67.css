@@ -247,6 +247,19 @@
 .elementor-3634 .elementor-element.elementor-element-fe42ff8 > .elementor-widget-container{
     padding: 2.75em 3.5em!important;
 }
+.card2 .elementor-icon-box-icon svg{
+    width: 62px!important;
+    height: 62px!important;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(23,107,120,.65));
+}
+.card2 .elementor-icon-box-title{
+    font-size: 1.85em!important;
+    line-height: 1.25!important;
+}
+.card2 .elementor-icon-box-description{
+    font-size: 1.15em!important;
+    line-height: 1.6!important;
+}
 }/* End custom CSS */
 /* Start custom CSS for html, class: .elementor-element-9da0dcc */.linhas {
     width: 1px;
