@@ -221,13 +221,13 @@
 
 @media(max-width: 1024px) and (min-width:881px){
 .card2{
-    min-height: 64vh;
+    min-height: 300px;
 }
 }
 
 @media(max-width: 880px) and (min-width: 768px){
 .card2{
-    min-height: 60vh;
+    min-height: 260px;
 }
 }
 
@@ -235,14 +235,14 @@
 
 @media(max-width: 767px) and (min-width: 663px){
 .card2{
-    min-height: 63vh;
+    min-height: 230px;
 }
 }
 
 
 @media(max-width: 662px){
 .card2{
-    min-height: 54vh;
+    min-height: 200px;
 }
 }/* End custom CSS */
 /* Start custom CSS for html, class: .elementor-element-9da0dcc */.linhas {
@@ -268,23 +268,32 @@
     flex-wrap: nowrap;
     white-space: nowrap;
     position: relative;
-    left: -50%;
+    left: 0;
+    width: max-content;
+    animation: goted-ticker-scroll 34s linear infinite;
 }
 
 .elementor-3634 .elementor-element.elementor-element-5c610b8 .elementor-widget-container{
-    overflow: visible;
+    overflow: hidden;
 }
 
+.elementor-3634 .elementor-element.elementor-element-cef0848{
+    overflow: hidden;
+}
+
+@keyframes goted-ticker-scroll{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .elementor-3634 .elementor-element.elementor-element-5c610b8 .elementor-icon-list-items{
+        animation: none;
+    }
+}
 
 .elementor-3634 .elementor-element.elementor-element-5c610b8 svg {
     filter: drop-shadow(0 0 2mm #176B7895);
-}
-
-@media(max-width:1024px){
-    .elementor-3634 .elementor-element.elementor-element-5c610b8 .elementor-icon-list-items{
-    left: -95%;
-}
-    
 }/* End custom CSS */
 /* Start custom CSS for container, class: .elementor-element-cef0848 */.elementor-3634 .elementor-element.elementor-element-cef0848{
     background: linear-gradient(to left, #0B1830, #17325C);
