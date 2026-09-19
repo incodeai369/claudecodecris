@@ -124,6 +124,8 @@
 @media(min-width: 769px){
 .card2{
     min-height: 320px;
+    max-width: 760px;
+    margin: 0 auto;
 }
 }
 
