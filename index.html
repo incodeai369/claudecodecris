@@ -160,9 +160,11 @@ var pysFacebookRest = {"restApiUrl":"#","debug":""};
 	
 		<div  data-elementor-type="wp-page" data-elementor-id="3634" class="elementor elementor-3634" data-elementor-post-type="page">
 <style>
-.goted-hero-banner{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;background-image:url('assets/images/brand/hero-bg-petroleo.jpg');background-size:cover;background-position:center;background-color:#12233F;}
-.goted-hero-banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;background:linear-gradient(180deg,rgba(6,6,14,0) 0%,#06060E 100%);pointer-events:none;}
-.goted-hero-banner__logo{position:absolute;left:50%;top:27%;transform:translate(-50%,-50%);width:34%;max-width:420px;min-width:160px;height:auto;z-index:2;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));}
+.goted-hero-banner{position:relative;width:100%;aspect-ratio:1672/941;overflow:hidden;background-image:url('assets/images/brand/hero-bg-compass.jpg');background-size:cover;background-position:center;background-color:#176B78;}
+.goted-hero-banner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,rgba(23,107,120,0) 0%,#176B78 100%);pointer-events:none;}
+.goted-hero-banner__logo{position:absolute;left:50%;top:24%;transform:translate(-50%,-50%);width:34%;max-width:420px;min-width:160px;height:auto;z-index:2;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));animation:goted-logo-pulse 2.6s ease-in-out infinite;}
+@keyframes goted-logo-pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.08);}}
+@media (prefers-reduced-motion: reduce){.goted-hero-banner__logo{animation:none;}}
 </style>
 <section class="goted-hero-banner">
 <img class="goted-hero-banner__logo" src="assets/images/brand/logo-goted.png" alt="GOTED" width="1509" height="410" />
