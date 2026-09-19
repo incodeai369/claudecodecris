@@ -121,6 +121,12 @@
     z-index: 1;
 }
 
+@media(min-width: 769px){
+.card2{
+    min-height: 320px;
+}
+}
+
 .card2:before, .card2:after{
     content: "";
     position: absolute;
@@ -216,6 +222,28 @@
 }
 .card2 .elementor-icon-box-wrapper{
     gap: 14px!important;
+}
+}
+
+@media(min-width: 769px){
+.card2 .elementor-icon-box-wrapper{
+    flex-direction: column!important;
+    align-items: flex-start!important;
+    gap: 16px!important;
+}
+.card2 .elementor-icon-box-description{
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+.card2 .card-content2{
+    align-items: flex-start;
+}
+.elementor-3634 .elementor-element.elementor-element-96e56c5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-bba4162 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-3cd9fe5 > .elementor-widget-container,
+.elementor-3634 .elementor-element.elementor-element-fe42ff8 > .elementor-widget-container{
+    padding: 2.75em 3.5em!important;
 }
 }/* End custom CSS */
 /* Start custom CSS for html, class: .elementor-element-9da0dcc */.linhas {
